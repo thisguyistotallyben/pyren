@@ -46,11 +46,10 @@ def setup_pygame():
 
 
 def handle_mouse_click(pos):
+    sa.stop()
     print(pos[0])
     if siren_buttons[0].was_clicked(pos):
         sa.play_audio('audio/wail.wav', True)
-    if siren_buttons[1].was_clicked(pos):
-        sa.stop()
 
 
 
