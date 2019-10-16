@@ -2,5 +2,10 @@
     "resolution": {
         "x": 240,
         "y": 180
+    },
+    "audio": {
+        "wail": {
+            "filename": "audio/wail.wav"
+        }
     }
 }
