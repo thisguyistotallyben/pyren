@@ -3,10 +3,27 @@ import json
 from siren_audio import SirenAudio
 
 
+class PGButton:
+    label = ''
+    posx = 0
+    posy = 0
+
+    sizex = 0
+    sizey = 0
+
+    def was_clicked(self, pos):
+        if pos[0] in range(self.posx, self.posx + self.sizex) and pos[1] in range(self.posy, self.posy + self.sizey):
+           print('clicked')
+           return True
+        return False
+
+
 running = True
 config = {}
 screen = None
 sa = SirenAudio()
+
+siren_buttons = []
 
 
 # Is this silly? It might be silly
@@ -28,11 +45,19 @@ def setup_pygame():
     print('yeet2')
 
 
+def handle_mouse_click(pos):
+    print(pos[0])
+    if siren_buttons[0].was_clicked(pos):
+        sa.play_audio('audio/wail.wav', True)
+
+
 def enter_the_loop_my_dude():
     global running
 
     while running:
         for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONUP:
+                handle_mouse_click(pygame.mouse.get_pos())
             if event.type == pygame.QUIT:
                 running = False
             if event.type == pygame.KEYDOWN:
@@ -41,19 +66,28 @@ def enter_the_loop_my_dude():
                 if event.key == pygame.K_DOWN:
                     sa.stop()
                 if event.key == pygame.K_RIGHT:
-                    sa.play_audio('audio/hilo2.wav', True)
-            if event.type == pygame.MOUSEBUTTONUP:
-                pos = pygame.mouse.get_pos()
+                    sa.play_audio('audio/wail.wav', True)
 
 
 
 def main():
     global config
+    global siren_buttons
+
     print('yeet')
     config = load_config('config.json')
     setup_pygame()
 
-    pygame.draw.rect(screen, (0, 128, 255), pygame.Rect(30, 30, 60, 60))
+    wailButton = PGButton()
+    wailButton.label = 'Wail'
+    wailButton.posx = 0
+    wailButton.posy = 0
+    wailButton.sizex = 100
+    wailButton.sizey = 100
+
+    siren_buttons.append(wailButton)
+
+    pygame.draw.rect(screen, (0, 128, 255), pygame.Rect(0, 0, 100, 100))
     pygame.display.flip()
 
     enter_the_loop_my_dude()
