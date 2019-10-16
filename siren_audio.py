@@ -12,7 +12,7 @@ class SirenAudio:
 
     def play_audio(self, fname, shouldLoop):
         self.stop()
-        self.load(fname)
+        #self.load(fname)
 
         if shouldLoop:
             pygame.mixer.music.play(-1)

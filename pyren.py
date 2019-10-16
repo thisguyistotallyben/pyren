@@ -79,6 +79,8 @@ def main():
     global config
     global siren_buttons
 
+    sa.load('audio/hilo2.wav')
+
     print('yeet')
     config = load_config('config.json')
     setup_pygame()
