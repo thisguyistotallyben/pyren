@@ -42,6 +42,8 @@ def enter_the_loop_my_dude():
                     sa.stop()
                 if event.key == pygame.K_RIGHT:
                     sa.play_audio('audio/hilo2.wav', True)
+            if event.type == pygame.MOUSEBUTTONUP:
+                pos = pygame.mouse.get_pos()
 
 
 
