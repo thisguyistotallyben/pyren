@@ -49,6 +49,9 @@ def handle_mouse_click(pos):
     print(pos[0])
     if siren_buttons[0].was_clicked(pos):
         sa.play_audio('audio/wail.wav', True)
+    if siren_buttons[1].was_clicked(pos):
+        sa.stop()
+
 
 
 def enter_the_loop_my_dude():
@@ -56,6 +59,9 @@ def enter_the_loop_my_dude():
 
     while running:
         for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if siren_buttons[1].was_clicked(pygame.mouse.get_pos()):
+                    sa.play_audio('audio/wail.wav', True)
             if event.type == pygame.MOUSEBUTTONUP:
                 handle_mouse_click(pygame.mouse.get_pos())
             if event.type == pygame.QUIT:
@@ -85,7 +91,16 @@ def main():
     wailButton.sizex = 100
     wailButton.sizey = 100
 
+    man = PGButton()
+    man.label = 'Manual'
+    man.posx = 120
+    man.posy = 0
+    man.sizex = 100
+    man.sizey = 100
+
+
     siren_buttons.append(wailButton)
+    siren_buttons.append(man)
 
     pygame.draw.rect(screen, (0, 128, 255), pygame.Rect(0, 0, 100, 100))
     pygame.display.flip()
